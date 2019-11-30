@@ -7,6 +7,21 @@ url_previous = "https://pfabankapi.app.cloud.gov/api/failures?fields=NAME%2CCERT
 latest_data = pd.read_csv(url_latest)
 previous_data = pd.read_csv(url_previous)
 
+# format dates properly
 latest_data["Closing Date"] = pd.to_datetime(latest_data["Closing Date"])
 latest_data["Updated Date"] = pd.to_datetime(latest_data["Updated Date"])
+latest_data["fail_year"] = latest_data["Closing Date"].dt.year
+
+previous_data["FAILDATE"] = pd.to_datetime(previous_data["FAILDATE"])
+previous_data["fail_year"] = previous_data["FAILDATE"].dt.year
+
+# write to file
+
+# when reading back in the csv pandas won't recognize the dates
+latest_data.to_csv("./data/latest_data.csv")
+previous_data.to_csv("./data/previous_data.csv")
+
+# try a pickle file
+latest_data.to_pickle("./data/latest_data.pkl")
+previous_data.to_pickle("./data/previous_data.pkl")
 
