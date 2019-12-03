@@ -26,18 +26,22 @@ failure_count_df = pd.DataFrame(failure_count)
 
 bank_failures_quarterly = failure_count_df.resample('QS').sum()
 
+# quarterly failures from Q3 2000 to Q3 2019
 bank_failures_quarterly.columns.values[0] = "num_failures"
 
 # plot
 bank_failures_quarterly.plot()
 plt.show()
 
+# Get FRED data on GDP growth and run a poisson regression
+# Downloaded the data manually
 
-# Get FRED data on GDP groth and run a poisson regression
+gdp = pd.read_csv("./data/gdp_growth.csv")
 
 
 
 
-## convert to percent change
-## we actally don't want to use this
+
+# convert to percent change
+# we actally don't want to use this
 bank_failures_quarterly.pct_change()
