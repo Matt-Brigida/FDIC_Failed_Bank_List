@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 plt.close('all')
 
@@ -37,6 +38,17 @@ plt.show()
 # Downloaded the data manually
 
 gdp = pd.read_csv("./data/gdp_growth.csv")
+gdp = gdp.set_index('DATE')
+
+## merge gdp and failure data
+
+merged_data = pd.merge(bank_failures_quarterly, gdp, how="inner", left_index=True, right_index=True)
+
+sns.regplot(x="num_failures", y="gdp_growth", data=merged_data)
+plt.show()
+
+sns.jointplot(x="num_failures", y="gdp_growth", data=merged_data, kind="reg")
+plt.show()
 
 
 
