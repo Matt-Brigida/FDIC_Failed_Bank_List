@@ -22,7 +22,7 @@ latest_data.columns.values
 
 failure_count = latest_data["Closing Date"].value_counts()
 
-# convert t oquarterly data-------
+# convert to quarterly data-------
 failure_count_df = pd.DataFrame(failure_count)
 
 bank_failures_quarterly = failure_count_df.resample('QS').sum()
@@ -40,16 +40,16 @@ plt.show()
 gdp = pd.read_csv("./data/gdp_growth.csv")
 gdp = gdp.set_index('DATE')
 
-## merge gdp and failure data
+# merge gdp and failure data
 
 merged_data = pd.merge(bank_failures_quarterly, gdp, how="inner", left_index=True, right_index=True)
 
 sns.regplot(x="num_failures", y="gdp_growth", data=merged_data)
 plt.show()
 
+sns.set(style="darkgrid")
 sns.jointplot(x="num_failures", y="gdp_growth", data=merged_data, kind="reg")
 plt.show()
-
 
 
 
